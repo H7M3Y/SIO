@@ -19,10 +19,10 @@ int main() {
     }
     if (*input == 17 /*Ctrl-Q*/)
       break;
-    io::writeouts("You typed ");
-    io::writeout(input, n);
-    io::writeouts("\n");
-    // io::writeoutf("You typed %*s\n", n, input);
+    // io::writeouts("You typed ");
+    // io::writeout(input, n);
+    // io::writeouts("\n");
+    io::writeoutf("You typed %.*s\n", n, input);
   }
   io::writeerrs("\nEOF\n");
 }
