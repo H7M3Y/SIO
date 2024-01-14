@@ -210,4 +210,38 @@ size_t writeerrf(const char *fmt, ...) noexcept {
   va_end(arg);
   return ret;
 }
+size_t writeoutfd(const char *fmt, ...) noexcept {
+  size_t ret;
+  va_list oarg, arg;
+  va_start(arg, fmt);
+  va_copy(oarg, arg);
+  int size = vsnprintf(nullptr, 0, fmt, oarg);
+  va_end(oarg);
+  if (size < 0)
+    return io::fatal;
+  auto buf = new char[size + 1];
+  if (vsprintf(buf, fmt, arg) < 0)
+    return io::fatal;
+  ret = writeout(buf, size);
+  delete[] buf;
+  va_end(arg);
+  return ret;
+}
+size_t writeerrfd(const char *fmt, ...) noexcept {
+  size_t ret;
+  va_list oarg, arg;
+  va_start(arg, fmt);
+  va_copy(oarg, arg);
+  int size = vsnprintf(nullptr, 0, fmt, oarg);
+  va_end(oarg);
+  if (size < 0)
+    return io::fatal;
+  auto buf = new char[size + 1];
+  if (vsprintf(buf, fmt, arg) < 0)
+    return io::fatal;
+  ret = writeerr(buf, size);
+  delete[] buf;
+  va_end(arg);
+  return ret;
+}
 } // namespace io

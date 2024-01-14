@@ -40,9 +40,13 @@ int format(char *dst, const char *fmt, ...) noexcept;
  */
 
 // Lead to dynamic memory allocation if the length of formatted string
-// exceed 63. Not thread safe, that case format() the string yourself.
+// exceed 63.
 size_t writeoutf(const char *fmt, ...) noexcept;
 // Lead to dynamic memory allocation if the length of formatted string
-// exceed 63. Not thread safe, that case format() the string yourself.
+// exceed 63.
 size_t writeerrf(const char *fmt, ...) noexcept;
+// Always perform dynamic memory allocation.
+size_t writeoutfd(const char *fmt, ...) noexcept;
+// Always perform dynamic memory allocation.
+size_t writeerrfd(const char *fmt, ...) noexcept;
 } // namespace io
