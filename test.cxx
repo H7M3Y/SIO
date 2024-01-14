@@ -7,21 +7,22 @@ int main() {
   io::setin_nonblocking();
   io::setin_cbreak();
   io::setin_noecho();
-  io::writeout("Enter Ctrl-Q to quit\n", 21);
-  while ((n = io::readin(input, 4))) {
+  io::writeouts("Enter Ctrl-Q to quit\n");
+  while ((n = io::readins(input))) {
     if (n == io::fatal) {
-      io::writeerr("fatal: io\n", 10);
+      io::writeerrs("fatal: io\n");
       std::terminate();
     }
     if (n == io::again) {
       std::this_thread::yield();
       continue;
     }
-    if (*input == 17)
+    if (*input == 17 /*Ctrl-Q*/)
       break;
-    io::writeout("You typed ", 10);
+    io::writeouts("You typed ");
     io::writeout(input, n);
-    io::writeout("\n", 1);
+    io::writeouts("\n");
+    // io::writeoutf("You typed %*s\n", n, input);
   }
-  io::writeerr("\nEOF\n", 5);
+  io::writeerrs("\nEOF\n");
 }
