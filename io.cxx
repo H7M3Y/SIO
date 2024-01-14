@@ -145,5 +145,6 @@ size_t setin_noecho() noexcept {
   if (!SetConsoleMode(hStdin, mode))
     return io::fatal;
 #endif
+  return io::ok;
 }
 } // namespace io
