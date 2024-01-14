@@ -37,14 +37,18 @@ size_t readin(void *dst, size_t n) noexcept {
     BOOL peekResult;
     peekResult = PeekNamedPipe(GetStdHandle(STD_INPUT_HANDLE), NULL, 0, NULL,
                                &totalBytesAvailable, NULL);
-    if (!peekResult)
+    if (!peekResult) {
+      perror("Error: peek\n");
       return io::fatal;
+    }
     if (totalBytesAvailable == 0)
       return io::again;
     if (ReadFile(GetStdHandle(STD_INPUT_HANDLE), dst, n, &bytesRead, NULL))
       return bytesRead;
-    else
+    else {
+      perror("Error: read\n");
       return io::fatal;
+    }
   }
   DWORD bytesRead;
   if (ReadFile(GetStdHandle(STD_INPUT_HANDLE), dst, n, &bytesRead, NULL))
