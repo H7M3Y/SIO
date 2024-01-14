@@ -4,9 +4,12 @@
 int main() {
   char input[4];
   size_t n;
-  io::setin_nonblocking();
-  io::setin_cbreak();
-  io::setin_noecho();
+  if (io::setin_nonblocking() != io::ok)
+    io::writeerrs("error: nb\n");
+  if (io::setin_cbreak() != io::ok)
+    io::writeerrs("error: cb\n");
+  if (io::setin_noecho() != io::ok)
+    io::writeerrs("error: ne\n");
   io::writeouts("Enter Ctrl-Q to quit\n");
   while ((n = io::readins(input))) {
     if (n == io::fatal) {
