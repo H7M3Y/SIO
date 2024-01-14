@@ -6,6 +6,7 @@
 #define _tool_hxx_WINDOWS
 #endif
 namespace io {
+bool nonblock = false;
 #ifdef _tool_hxx_UNIX
 #include <errno.h>
 #include <fcntl.h>
@@ -64,7 +65,6 @@ size_t writeerr(const void *src, size_t n) noexcept {
     return io::fatal;
 }
 #endif
-bool nonblock = false;
 size_t setin_nonblocking() noexcept {
 #ifdef _tool_hxx_WINDOWS
   HANDLE hStdin = GetStdHandle(STD_INPUT_HANDLE);
