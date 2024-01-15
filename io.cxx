@@ -163,7 +163,11 @@ int parse(const char *str, const char *fmt, ...) noexcept {
 int format(char *dst, const char *fmt, ...) noexcept {
   va_list arg;
   va_start(arg, fmt);
-  int ret = vsprintf(dst, fmt, arg);
+  int ret;
+  if (!dst)
+    ret = vsnprintf(dst, 0, fmt, arg);
+  else
+    ret = vsprintf(dst, fmt, arg);
   va_end(arg);
   return ret;
 }
